@@ -15,6 +15,9 @@ namespace Idp
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
+                new IdentityResources.Email(),
+                new IdentityResources.Phone(),
+                new IdentityResources.Address(),
                 new IdentityResources.Profile()
             };
         }
@@ -42,6 +45,42 @@ namespace Idp
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
                     AllowedScopes = { "api1"}
+                },
+                //wpf client password 
+                new Client
+                {
+                    ClientId = "wpf client",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets ={
+                        new Secret("wpf secrect".Sha256())
+                    },
+                    AllowedScopes = {
+                        "api1",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Phone,
+                        IdentityServerConstants.StandardScopes.Address,
+                        IdentityServerConstants.StandardScopes.Profile}
+                },
+                //mvc client  
+                new Client
+                {
+                    ClientId = "mvc client",
+                    ClientName = "ASP.NET Core MVC Client",
+
+                    AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+                    ClientSecrets ={ new Secret("mvc secret".Sha256()) },
+                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+
+                    FrontChannelLogoutUri = "http://localhost:5002/signout-oidc",
+                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    
+                    AllowOfflineAccess = true,
+                    AllowedScopes = {
+                        "api1",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
                 }
             };
         }
