@@ -76,6 +76,8 @@ namespace Idp
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
                     
                     AllowOfflineAccess = true,
+                    AccessTokenLifetime = 60 ,//60秒刷新,默认一个小时
+
                     AllowedScopes = {
                         "api1",
                         IdentityServerConstants.StandardScopes.OpenId,
