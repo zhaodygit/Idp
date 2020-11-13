@@ -74,13 +74,50 @@ namespace Idp
 
                     FrontChannelLogoutUri = "http://localhost:5002/signout-oidc",
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
-                    
+
                     AllowOfflineAccess = true,
                     AccessTokenLifetime = 60 ,//60秒刷新,默认一个小时
 
                     AllowedScopes = {
                         "api1",
                         IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    }
+                },
+                //angular, implicit flow
+                new Client
+                {
+                    ClientId = "angular-client",
+                    ClientName =  "Angular SPA 客户端",
+                    ClientUri = "http://localhost:4200",
+
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = true,
+                    AccessTokenLifetime = 60 * 5,
+
+                    RedirectUris =
+                    {
+                        "http://localhost:4200/signin-oidc",
+                        "http://localhost:4200/redirect-silentrenew"
+                    },
+
+                    PostLogoutRedirectUris =
+                    {
+                        "http://localhost:4200"
+                    },
+
+                    AllowedCorsOrigins =
+                    {
+                        "http://localhost:4200"
+                    },
+
+                    AllowedScopes = {
+                        "api1",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Address,
+                        IdentityServerConstants.StandardScopes.Phone,
                         IdentityServerConstants.StandardScopes.Profile
                     }
                 }
